@@ -24,7 +24,7 @@ const formSchema = z.object({
   password: z.string().min(8, {
     message: "Password must be atleast 8 characters long",
   }),
-  role: z.enum(["Admin", "User"]),
+  role: z.enum(["Admin", "User", "SuperAdmin"]),
 });
 
 const Signin = () => {

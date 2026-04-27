@@ -144,7 +144,7 @@ const Signup = () => {
           className="bg-custom-dark-blue w-full"
           disabled={loading}
         >
-          Signin
+          Signup
         </Button>
       </form>
     </Form>

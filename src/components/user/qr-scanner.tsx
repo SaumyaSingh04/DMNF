@@ -1,17 +1,27 @@
 import { Scanner } from "@yudiel/react-qr-scanner";
 import { useToast } from "../ui/use-toast";
+import { useNavigate } from "react-router-dom";
 
 const QRScanner = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleScan = (redirectUrl: string) => {
     if (!redirectUrl) {
-      toast({
-        title: "Unable to fetch QR Code",
-      });
+      return toast({ title: "Unable to fetch QR Code" });
     }
 
-    window.location.replace(redirectUrl);
+    try {
+      const url = new URL(redirectUrl);
+      const result = url.searchParams.get("result");
+      if (result) {
+        navigate(`/home/menu?result=${result}`);
+      } else {
+        window.location.replace(redirectUrl);
+      }
+    } catch {
+      window.location.replace(redirectUrl);
+    }
   };
 
   return (

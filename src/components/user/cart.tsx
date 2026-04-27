@@ -9,6 +9,7 @@ import { useState } from "react";
 const Cart = () => {
   const { cart, calculateTotalPrice } = useCartStore((state) => state);
   const [tableNumber, setTableNumber] = useState(0);
+  const [paymentMode, setPaymentMode] = useState<"online" | "cod">("cod");
   const navigate = useNavigate();
 
   return (
@@ -56,16 +57,39 @@ const Cart = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-4 w-full lg:w-1/4 mx-auto mt-10">
+          <div className="flex flex-col items-center gap-4 w-full lg:w-1/4 mx-auto mt-10">
             <Input
               type="number"
               placeholder="Enter table number"
               value={tableNumber}
               onChange={(e) => setTableNumber(parseInt(e.target.value))}
             />
+            <div className="flex gap-2 w-full">
+              <Button
+                className={`flex-1 ${
+                  paymentMode === "cod"
+                    ? "bg-custom-blue text-custom-black"
+                    : "bg-custom-dark-blue text-custom-blue"
+                }`}
+                onClick={() => setPaymentMode("cod")}
+              >
+                Cash on Delivery
+              </Button>
+              <Button
+                className={`flex-1 ${
+                  paymentMode === "online"
+                    ? "bg-custom-blue text-custom-black"
+                    : "bg-custom-dark-blue text-custom-blue"
+                }`}
+                onClick={() => setPaymentMode("online")}
+              >
+                Online
+              </Button>
+            </div>
             <PayButton
               amount={calculateTotalPrice()}
               tableNumber={tableNumber}
+              paymentMode={paymentMode}
             />
           </div>
         </div>

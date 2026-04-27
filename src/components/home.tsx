@@ -1,10 +1,11 @@
 import { jwtDecode } from "jwt-decode";
 import Admin from "./admin";
 import User from "./user";
+import SuperAdmin from "./superadmin";
 
 type UserData = {
   email: string;
-  role: "Admin" | "User";
+  role: "Admin" | "User" | "SuperAdmin";
 };
 
 const Home = () => {
@@ -22,6 +23,7 @@ const Home = () => {
 
   return (
     <div className="flex-1 bg-custom-black text-white flex flex-col">
+      {user.role === "SuperAdmin" && <SuperAdmin />}
       {user.role === "Admin" && <Admin />}
       {user.role === "User" && <User />}
     </div>
